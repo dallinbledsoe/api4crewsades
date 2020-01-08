@@ -1,10 +1,14 @@
-from flask import flask
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+from os
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "hey flask"
+    return "Hey Flask"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
