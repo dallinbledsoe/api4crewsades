@@ -17,15 +17,14 @@ class Shirt(db.Model):
   __tablename__ = "shirts"
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String(100), nullable=False)
-  done = db.Column(db.Boolean)
-
-  def __init__(self, title, done):
+  category = db.Column(db.String(100), nullable=False)
+  def __init__(self, title, category):
     self.title = title
-    self.done = done
+    self.category = category
 
 class ShirtSchema(ma.Schema):
   class Meta:
-    fields = ("id", "title", "done")
+    fields = ("id", "title", "category")
 
 shirt_schema = ShirtSchema()
 shirts_schema = ShirtSchema(many=True)
@@ -43,9 +42,9 @@ def get_shirts():
 @app.route("/shirt", methods=["POST"])
 def add_shirt():
   title = request.json["title"]
-  done = request.json["done"]
+  category = request.json["category"]
 
-  new_shirt = Shirt(title, done)
+  new_shirt = Shirt(title, category)
 
   db.session.add(new_shirt)
   db.session.commit()
